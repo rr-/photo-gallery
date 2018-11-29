@@ -1,0 +1,7 @@
+body {
+    overflow-y: scroll;
+}
+
+.navbar .my-breadcrumb {
+    font-size: 150%;
+}

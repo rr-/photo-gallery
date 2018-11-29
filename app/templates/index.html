@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Index of {{ path }}{% endblock %}
+{% block body %}
+
+<header>
+    <div class="navbar navbar-light bg-light">
+        <div class="container">
+            <span class="my-breadcrumb navbar-text py-0">
+                {% set vars = namespace(url="/") %}
+                <a href="{{ vars.url }}">Home</a>
+                {% set vars.url = "/album" %}
+                {% for part in path.parts %}
+                    &raquo;
+                    {% set vars.url = vars.url + "/" + part %}
+                    <a href="{{ vars.url }}">{{ part }}</a>
+                {% endfor %}
+            </span>
+
+            <span class="navbar-text py-0">
+                {% if session.user %}
+                    Logged in as {{ session.user }}.
+                    <a class='ml-2' href="/logout">Log out</a>
+                {% else %}
+                    Not logged in.
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</header>
+
+<main role="main">
+    <div class="container pt-3 pb-5">
+        {% if not child_albums and not photos %}
+            <p>Nothing to show.</p>
+        {% endif %}
+
+        {% if child_albums %}
+            <p>Albums:</p>
+            <ul>
+                {% for subpath in child_albums %}
+                    <li>
+                        <a href="/album/{{ subpath }}">
+                            {{ subpath.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if photos %}
+            <div id="gallery">
+                {% for subpath in photos %}
+                    <a href="/static/img/{{ subpath }}" data-fancybox="gallery">
+                        <img class="thumb" src="/static/thumb/300x300/{{ subpath }}" alt="{{ subpath.name }}"/>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <script type="text/javascript">
+            $("#gallery a").css({opacity: 0});
+            $(function () {
+                $("#gallery a").css({opacity: 1});
+                $("#gallery").justifiedGallery({
+                    rowHeight: 200,
+                    lastRow: "left",
+                });
+            }).on("jg.complete", function () {
+                $("#gallery a").fancybox({
+                    transitionIn: "elastic",
+                    transitionOut: "elastic",
+                    speedIn: 600,
+                    speedOut: 200,
+                    overlayShow: false
+                });
+            });
+        </script>
+    </div>
+</main>
+
+{% endblock %}

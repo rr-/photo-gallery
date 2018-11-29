@@ -1,0 +1,19 @@
+version: '3'
+services:
+  photo-gallery:
+    restart: always
+    container_name: d-photo-gallery-dev
+    volumes:
+      - ./app/:/app/
+      - ~/data/img/irl/:/app/static/img/
+    ports:
+      - "8080:80"
+    expose:
+      - 80
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      FLASK_APP: main.py
+      FLASK_DEBUG: 1
+    entrypoint: "flask run --host=0.0.0.0 --port=80"
