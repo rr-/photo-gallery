@@ -10,7 +10,7 @@ def collect_images() -> T.Iterable[Path]:
     dirs = [IMG_DIR]
     while dirs:
         root = dirs.pop()
-        for child in root.iterdir():
+        for child in sorted(root.iterdir(), key=lambda child: child.name):
             if child.is_dir():
                 dirs.append(child)
             elif child.is_file() and child.suffix.lower() in IMG_EXT:
