@@ -5,7 +5,6 @@ services:
     container_name: d-photo-gallery-dev
     volumes:
       - ./app/:/app/
-      - ~/data/img/irl/:/app/static/img/
     ports:
       - "8080:80"
     expose:
