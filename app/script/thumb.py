@@ -23,8 +23,12 @@ def main() -> None:
             dst_path = (
                 THUMB_DIR / f"{width}x{height}" / src_path.relative_to(IMG_DIR)
             )
-            print(src_path, "→", dst_path)
-            gen_thumb(src_path, dst_path, width, height)
+            print(src_path, "→", dst_path, end="… ")
+            try:
+                gen_thumb(src_path, dst_path, width, height)
+                print("ok")
+            except OSError as ex:
+                print(f"error ({ex})")
 
 
 if __name__ == "__main__":
