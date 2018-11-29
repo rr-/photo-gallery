@@ -54,4 +54,4 @@ def rt_login() -> T.Any:
 def rt_logout() -> T.Any:
     session.pop("user")
     flash("Logged out.", "info")
-    return index()
+    return rt_index()
