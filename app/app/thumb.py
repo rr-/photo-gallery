@@ -22,7 +22,7 @@ def gen_thumb(
     image = image.resize((new_width, new_height), Image.ANTIALIAS)
 
     dst_path.parent.mkdir(exist_ok=True, parents=True)
-    image.save(str(dst_path), quality=75)
+    image.save(str(dst_path), quality=85)
 
 
 @app.route("/static/thumb/<int:min_width>x<int:min_height>/<path:name>")
