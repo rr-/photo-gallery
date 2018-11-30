@@ -50,7 +50,7 @@
         {% if photos %}
             <div id="gallery">
                 {% for subpath in photos %}
-                    <a href="/static/img/{{ subpath }}" data-fancybox="gallery">
+                    <a href="/static/thumb/1200x1200/{{ subpath }}" data-fancybox="gallery">
                         <img class="thumb" src="/static/thumb/300x300/{{ subpath }}" alt="{{ subpath.name }}"/>
                     </a>
                 {% endfor %}
@@ -71,7 +71,19 @@
                     transitionOut: "elastic",
                     speedIn: 600,
                     speedOut: 200,
-                    overlayShow: false
+                    overlayShow: false,
+                    buttons: [
+                        "zoom",
+                        "slideShow",
+                        "fullScreen",
+                        "download",
+                        "thumbs",
+                        "close",
+                    ],
+                    afterShow: function (instance, current) {
+                        var src = current.src.replace(/thumb\/\d+x\d+/, 'img');
+                        $("[data-fancybox-download]").attr('href', src);
+                    },
                 });
             });
         </script>

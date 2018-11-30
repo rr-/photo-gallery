@@ -6,4 +6,4 @@ USERS_PATH = Path("/app/config/users.txt")
 RULES_PATH = Path("/app/config/rules.txt")
 
 IMG_EXT = {".jpg", ".jpeg", ".png"}
-THUMB_SIZES = [(300, 300)]
+THUMB_SIZES = [(300, 300), (1200, 1200)]  # minimum dimensions for thumbs
